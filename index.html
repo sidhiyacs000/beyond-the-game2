@@ -88,21 +88,21 @@
             <input type="text" id="storiesSearchInput" class="gsb-input"
               placeholder="e.g. footballer who recovered from ACL and became a coach..."
               onkeydown="if(event.key==='Enter') geminiSearch('stories')"/>
-            <button class="gsb-btn" onclick="geminiSearch('stories')">
+            <button type="button" class="gsb-btn" onclick="geminiSearch('stories')">
               <span id="storiesBtnTxt">Search</span>
             </button>
           </div>
           <div class="gsb-hints">
             <span>Try:</span>
-            <button class="hint-chip" onclick="quickSearch('stories','Swimmer who overcame shoulder injury')">Swimmer + shoulder</button>
-            <button class="hint-chip" onclick="quickSearch('stories','Athlete who turned injury into business')">Injury to business</button>
-            <button class="hint-chip" onclick="quickSearch('stories','Young athlete who lost scholarship but rebuilt career')">Lost scholarship</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('stories','Swimmer who overcame shoulder injury')">Swimmer + shoulder</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('stories','Athlete who turned injury into business')">Injury to business</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('stories','Young athlete who lost scholarship but rebuilt career')">Lost scholarship</button>
           </div>
         </div>
         <div id="storiesGeminiResult" class="gsb-result" style="display:none;">
           <div class="gsb-result-header">
             <span class="gemini-badge">✨ Powered by Groq</span>
-            <button class="gemini-clear-btn" onclick="clearGemini('stories')">✕ Clear</button>
+            <button type="button" class="gemini-clear-btn" onclick="clearGemini('stories')">✕ Clear</button>
           </div>
           <div id="storiesGeminiContent" class="gemini-content"></div>
         </div>
@@ -123,21 +123,21 @@
             <input type="text" id="journalSearchInput" class="gsb-input"
               placeholder="e.g. journal prompts for grief and identity loss after career ending injury..."
               onkeydown="if(event.key==='Enter') geminiSearch('journal')"/>
-            <button class="gsb-btn" onclick="geminiSearch('journal')">
+            <button type="button" class="gsb-btn" onclick="geminiSearch('journal')">
               <span id="journalBtnTxt">Search</span>
             </button>
           </div>
           <div class="gsb-hints">
             <span>Try:</span>
-            <button class="hint-chip" onclick="quickSearch('journal','Self-worth journaling after losing athletic identity')">Identity loss</button>
-            <button class="hint-chip" onclick="quickSearch('journal','Gratitude journal prompts for injured athletes')">Gratitude practice</button>
-            <button class="hint-chip" onclick="quickSearch('journal','Future self journaling for career transition')">Future self</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('journal','Self-worth journaling after losing athletic identity')">Identity loss</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('journal','Gratitude journal prompts for injured athletes')">Gratitude practice</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('journal','Future self journaling for career transition')">Future self</button>
           </div>
         </div>
         <div id="journalGeminiResult" class="gsb-result" style="display:none;">
           <div class="gsb-result-header">
             <span class="gemini-badge">✨ Powered by Groq</span>
-            <button class="gemini-clear-btn" onclick="clearGemini('journal')">✕ Clear</button>
+            <button type="button" class="gemini-clear-btn" onclick="clearGemini('journal')">✕ Clear</button>
           </div>
           <div id="journalGeminiContent" class="gemini-content"></div>
         </div>
@@ -158,21 +158,21 @@
             <input type="text" id="tasksSearchInput" class="gsb-input"
               placeholder="e.g. daily tasks for an athlete feeling isolated and depressed after injury..."
               onkeydown="if(event.key==='Enter') geminiSearch('tasks')"/>
-            <button class="gsb-btn" onclick="geminiSearch('tasks')">
+            <button type="button" class="gsb-btn" onclick="geminiSearch('tasks')">
               <span id="tasksBtnTxt">Search</span>
             </button>
           </div>
           <div class="gsb-hints">
             <span>Try:</span>
-            <button class="hint-chip" onclick="quickSearch('tasks','Tasks for rebuilding routine after career-ending injury')">Rebuilding routine</button>
-            <button class="hint-chip" onclick="quickSearch('tasks','Social connection tasks for isolated injured athlete')">Social connection</button>
-            <button class="hint-chip" onclick="quickSearch('tasks','Mindfulness tasks for athlete anxiety and depression')">Anxiety & mindfulness</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('tasks','Tasks for rebuilding routine after career-ending injury')">Rebuilding routine</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('tasks','Social connection tasks for isolated injured athlete')">Social connection</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('tasks','Mindfulness tasks for athlete anxiety and depression')">Anxiety & mindfulness</button>
           </div>
         </div>
         <div id="tasksGeminiResult" class="gsb-result" style="display:none;">
           <div class="gsb-result-header">
             <span class="gemini-badge">✨ Powered by Groq</span>
-            <button class="gemini-clear-btn" onclick="clearGemini('tasks')">✕ Clear</button>
+            <button type="button" class="gemini-clear-btn" onclick="clearGemini('tasks')">✕ Clear</button>
           </div>
           <div id="tasksGeminiContent" class="gemini-content"></div>
         </div>
@@ -189,14 +189,14 @@
             <h3>How are you feeling today?</h3>
             <p>Take 60 seconds to log your mood.</p>
             <div class="mood-emojis">
-              <button class="mood-btn" onclick="selectMood(this, 1)">😢</button>
-              <button class="mood-btn" onclick="selectMood(this, 2)">😟</button>
-              <button class="mood-btn" onclick="selectMood(this, 3)">😐</button>
-              <button class="mood-btn" onclick="selectMood(this, 4)">🙂</button>
-              <button class="mood-btn" onclick="selectMood(this, 5)">😊</button>
+              <button type="button" class="mood-btn" onclick="selectMood(this, 1)">😢</button>
+              <button type="button" class="mood-btn" onclick="selectMood(this, 2)">😟</button>
+              <button type="button" class="mood-btn" onclick="selectMood(this, 3)">😐</button>
+              <button type="button" class="mood-btn" onclick="selectMood(this, 4)">🙂</button>
+              <button type="button" class="mood-btn" onclick="selectMood(this, 5)">😊</button>
             </div>
             <div class="mood-label" id="moodLabel">Select how you feel</div>
-            <button class="btn btn-primary" id="logMoodBtn" onclick="logMood()" style="margin-top:1rem;display:none;">Log Today's Mood</button>
+            <button type="button" class="btn btn-primary" id="logMoodBtn" onclick="logMood()" style="margin-top:1rem;display:none;">Log Today's Mood</button>
             <div class="mood-logged" id="moodLogged" style="display:none;">✅ Mood logged! You're making progress.</div>
             <div id="moodTipBox" style="display:none;" class="mood-tip-box"></div>
           </div>
@@ -239,21 +239,21 @@
             <input type="text" id="therapistSearchInput" class="gsb-input"
               placeholder="e.g. physiotherapist specialising in ACL recovery for footballers..."
               onkeydown="if(event.key==='Enter') geminiSearch('therapist')"/>
-            <button class="gsb-btn" onclick="geminiSearch('therapist')">
+            <button type="button" class="gsb-btn" onclick="geminiSearch('therapist')">
               <span id="therapistBtnTxt">Search</span>
             </button>
           </div>
           <div class="gsb-hints">
             <span>Try:</span>
-            <button class="hint-chip" onclick="quickSearch('therapist','Physiotherapist for shoulder rotator cuff recovery')">Shoulder specialist</button>
-            <button class="hint-chip" onclick="quickSearch('therapist','Sports physio for chronic pain management')">Chronic pain</button>
-            <button class="hint-chip" onclick="quickSearch('therapist','Aquatic physiotherapy for spinal injury athlete')">Aquatic therapy</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('therapist','Physiotherapist for shoulder rotator cuff recovery')">Shoulder specialist</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('therapist','Sports physio for chronic pain management')">Chronic pain</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('therapist','Aquatic physiotherapy for spinal injury athlete')">Aquatic therapy</button>
           </div>
         </div>
         <div id="therapistGeminiResult" class="gsb-result gsb-result-dark" style="display:none;">
           <div class="gsb-result-header">
             <span class="gemini-badge">✨ Powered by Groq</span>
-            <button class="gemini-clear-btn" onclick="clearGemini('therapist')">✕ Clear</button>
+            <button type="button" class="gemini-clear-btn" onclick="clearGemini('therapist')">✕ Clear</button>
           </div>
           <div id="therapistGeminiContent" class="gemini-content gemini-content-dark"></div>
         </div>
@@ -274,21 +274,21 @@
             <input type="text" id="exerciseSearchInput" class="gsb-input"
               placeholder="e.g. week 4 ACL recovery exercises for a 28-year-old runner..."
               onkeydown="if(event.key==='Enter') geminiSearch('exercise')"/>
-            <button class="gsb-btn" onclick="geminiSearch('exercise')">
+            <button type="button" class="gsb-btn" onclick="geminiSearch('exercise')">
               <span id="exerciseBtnTxt">Search</span>
             </button>
           </div>
           <div class="gsb-hints">
             <span>Try:</span>
-            <button class="hint-chip" onclick="quickSearch('exercise','Phase 2 ACL recovery strengthening exercises')">ACL Phase 2</button>
-            <button class="hint-chip" onclick="quickSearch('exercise','Rotator cuff strengthening exercises for swimmer')">Rotator cuff</button>
-            <button class="hint-chip" onclick="quickSearch('exercise','Gentle core exercises for lower back stress fracture')">Lower back</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('exercise','Phase 2 ACL recovery strengthening exercises')">ACL Phase 2</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('exercise','Rotator cuff strengthening exercises for swimmer')">Rotator cuff</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('exercise','Gentle core exercises for lower back stress fracture')">Lower back</button>
           </div>
         </div>
         <div id="exerciseGeminiResult" class="gsb-result gsb-result-dark" style="display:none;">
           <div class="gsb-result-header">
             <span class="gemini-badge">✨ Powered by Groq</span>
-            <button class="gemini-clear-btn" onclick="clearGemini('exercise')">✕ Clear</button>
+            <button type="button" class="gemini-clear-btn" onclick="clearGemini('exercise')">✕ Clear</button>
           </div>
           <div id="exerciseGeminiContent" class="gemini-content gemini-content-dark"></div>
         </div>
@@ -309,22 +309,22 @@
             <input type="text" id="nutritionSearchInput" class="gsb-input"
               placeholder="e.g. ACL recovery meal plan for a footballer with high protein needs..."
               onkeydown="if(event.key==='Enter') geminiSearch('nutrition')"/>
-            <button class="gsb-btn" onclick="geminiSearch('nutrition')">
+            <button type="button" class="gsb-btn" onclick="geminiSearch('nutrition')">
               <span id="nutritionBtnTxt">Search</span>
             </button>
           </div>
           <div class="gsb-hints">
             <span>Try:</span>
-            <button class="hint-chip" onclick="quickSearch('nutrition','Post ACL surgery anti-inflammatory meal plan')">Post ACL surgery</button>
-            <button class="hint-chip" onclick="quickSearch('nutrition','High protein meal plan for shoulder injury recovery')">Shoulder recovery</button>
-            <button class="hint-chip" onclick="quickSearch('nutrition','Vegetarian athlete recovery diet plan')">Vegetarian athlete</button>
-            <button class="hint-chip" onclick="quickSearch('nutrition','Spinal injury recovery nutrition for a sprinter')">Spinal injury</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('nutrition','Post ACL surgery anti-inflammatory meal plan')">Post ACL surgery</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('nutrition','High protein meal plan for shoulder injury recovery')">Shoulder recovery</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('nutrition','Vegetarian athlete recovery diet plan')">Vegetarian athlete</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('nutrition','Spinal injury recovery nutrition for a sprinter')">Spinal injury</button>
           </div>
         </div>
         <div id="nutritionGeminiResult" class="gsb-result gsb-result-dark" style="display:none;">
           <div class="gsb-result-header">
             <span class="gemini-badge">✨ Powered by Groq</span>
-            <button class="gemini-clear-btn" onclick="clearGemini('nutrition')">✕ Clear</button>
+            <button type="button" class="gemini-clear-btn" onclick="clearGemini('nutrition')">✕ Clear</button>
           </div>
           <div id="nutritionGeminiContent" class="gemini-content gemini-content-dark"></div>
         </div>
@@ -354,21 +354,21 @@
             <input type="text" id="skillsSearchInput" class="gsb-input"
               placeholder="e.g. how do my leadership skills as a team captain translate to business..."
               onkeydown="if(event.key==='Enter') geminiSearch('skills')"/>
-            <button class="gsb-btn" onclick="geminiSearch('skills')">
+            <button type="button" class="gsb-btn" onclick="geminiSearch('skills')">
               <span id="skillsBtnTxt">Search</span>
             </button>
           </div>
           <div class="gsb-hints">
             <span>Try:</span>
-            <button class="hint-chip" onclick="quickSearch('skills','Skills a professional footballer has that translate to business')">Football to business</button>
-            <button class="hint-chip" onclick="quickSearch('skills','What corporate skills does a marathon runner have')">Endurance to corporate</button>
-            <button class="hint-chip" onclick="quickSearch('skills','Leadership skills of a team sport athlete in the workplace')">Team leadership</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('skills','Skills a professional footballer has that translate to business')">Football to business</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('skills','What corporate skills does a marathon runner have')">Endurance to corporate</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('skills','Leadership skills of a team sport athlete in the workplace')">Team leadership</button>
           </div>
         </div>
         <div id="skillsGeminiResult" class="gsb-result" style="display:none;">
           <div class="gsb-result-header">
             <span class="gemini-badge">✨ Powered by Groq</span>
-            <button class="gemini-clear-btn" onclick="clearGemini('skills')">✕ Clear</button>
+            <button type="button" class="gemini-clear-btn" onclick="clearGemini('skills')">✕ Clear</button>
           </div>
           <div id="skillsGeminiContent" class="gemini-content"></div>
         </div>
@@ -389,21 +389,21 @@
             <input type="text" id="careerSearchInput" class="gsb-input"
               placeholder="e.g. best career paths for a retired professional swimmer aged 28..."
               onkeydown="if(event.key==='Enter') geminiSearch('career')"/>
-            <button class="gsb-btn" onclick="geminiSearch('career')">
+            <button type="button" class="gsb-btn" onclick="geminiSearch('career')">
               <span id="careerBtnTxt">Search</span>
             </button>
           </div>
           <div class="gsb-hints">
             <span>Try:</span>
-            <button class="hint-chip" onclick="quickSearch('career','Career paths for a retired professional footballer')">Retired footballer</button>
-            <button class="hint-chip" onclick="quickSearch('career','Business ideas for former Olympic athlete')">Olympic athlete</button>
-            <button class="hint-chip" onclick="quickSearch('career','How to become a sports coach after career-ending injury')">Become a coach</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('career','Career paths for a retired professional footballer')">Retired footballer</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('career','Business ideas for former Olympic athlete')">Olympic athlete</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('career','How to become a sports coach after career-ending injury')">Become a coach</button>
           </div>
         </div>
         <div id="careerGeminiResult" class="gsb-result" style="display:none;">
           <div class="gsb-result-header">
             <span class="gemini-badge">✨ Powered by Groq</span>
-            <button class="gemini-clear-btn" onclick="clearGemini('career')">✕ Clear</button>
+            <button type="button" class="gemini-clear-btn" onclick="clearGemini('career')">✕ Clear</button>
           </div>
           <div id="careerGeminiContent" class="gemini-content"></div>
         </div>
@@ -424,21 +424,21 @@
             <input type="text" id="mentorSearchInput" class="gsb-input"
               placeholder="e.g. mentor who transitioned from basketball to entrepreneurship..."
               onkeydown="if(event.key==='Enter') geminiSearch('mentor')"/>
-            <button class="gsb-btn" onclick="geminiSearch('mentor')">
+            <button type="button" class="gsb-btn" onclick="geminiSearch('mentor')">
               <span id="mentorBtnTxt">Search</span>
             </button>
           </div>
           <div class="gsb-hints">
             <span>Try:</span>
-            <button class="hint-chip" onclick="quickSearch('mentor','Former athlete mentor for media and journalism career')">Media career</button>
-            <button class="hint-chip" onclick="quickSearch('mentor','Mentor who went from sport to corporate speaking')">Corporate speaking</button>
-            <button class="hint-chip" onclick="quickSearch('mentor','Athlete entrepreneur mentor for sportswear brand')">Sportswear brand</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('mentor','Former athlete mentor for media and journalism career')">Media career</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('mentor','Mentor who went from sport to corporate speaking')">Corporate speaking</button>
+            <button type="button" class="hint-chip" onclick="quickSearch('mentor','Athlete entrepreneur mentor for sportswear brand')">Sportswear brand</button>
           </div>
         </div>
         <div id="mentorGeminiResult" class="gsb-result" style="display:none;">
           <div class="gsb-result-header">
             <span class="gemini-badge">✨ Powered by Groq</span>
-            <button class="gemini-clear-btn" onclick="clearGemini('mentor')">✕ Clear</button>
+            <button type="button" class="gemini-clear-btn" onclick="clearGemini('mentor')">✕ Clear</button>
           </div>
           <div id="mentorGeminiContent" class="gemini-content"></div>
         </div>
@@ -537,4 +537,5 @@
   <script src="script.js"></script>
 </body>
 </html>
+
 
