@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Beyond The Game</title>
+  <link rel="stylesheet" href="style.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<script type="module">
+  import { GoogleGenerativeAI } from "https://esm.run/@google/generative-ai";
+
+  const API_KEY = "PASTE_YOUR_API_KEY_HERE";
+  const genAI = new GoogleGenerativeAI(API_KEY);
+  const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+
+  window.generateMealPlan = async function () {
+    const userInput = document.getElementById("mealInput").value;
+    const resultDiv = document.getElementById("result");
+
+    resultDiv.innerHTML = "Generating meal plan...";
+
+    try {
+      const response = await model.generateContent(
+        `Create a detailed recovery nutrition meal plan for: ${userInput}`
+      );
+
+      const text = response.response.text();
+      resultDiv.innerHTML = text.replace(/\n/g, "<br>");
+    } catch (error) {
+      resultDiv.innerHTML = "Error generating meal plan.";
+      console.error(error);
+    }
+  };
+</script>
+</head>
+<body>
+
+  <div id="storyModal" style="display:none;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;"></div>
+
+  <nav class="navbar" id="navbar">
+    <div class="nav-logo">Beyond <span>The Game</span></div>
+    <ul class="nav-links">
+      <li><a href="#home">Home</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#mental">Mental</a></li>
+      <li><a href="#physical">Physical</a></li>
+      <li><a href="#career">Career</a></li>
+      <li><a href="#community">Community</a></li>
+      <li><a href="#contact" class="nav-cta">Get Support</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger"><span></span><span></span><span></span></div>
+  </nav>
+
+  <!-- ═══════════════ HERO ═══════════════ -->
+  <section class="hero" id="home">
+    <div class="hero-bg">
+      <div class="hero-circle c1"></div>
+      <div class="hero-circle c2"></div>
+      <div class="hero-circle c3"></div>
+    </div>
+    <div class="hero-content">
+      <div class="hero-badge">For Athletes. By People Who Understand.</div>
+      <h1 class="hero-title">Your Career Ended.<br/><span class="highlight">Your Story Hasn't.</span></h1>
+      <p class="hero-sub">Beyond The Game is a holistic support platform for injured athletes — combining mental wellness, physical recovery, and career reinvention in one place built specifically for you.</p>
+      <div class="hero-actions">
+        <a href="#mental" class="btn btn-primary">Start Your Recovery</a>
+        <a href="#about" class="btn btn-ghost">Learn More</a>
+      </div>
+      <div class="hero-stats">
+        <div class="stat"><span class="stat-num">3</span><span class="stat-label">Support Pillars</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">9+</span><span class="stat-label">Mental Health Tools</span></div>
+        <div class="stat-divider"></div>
+        <div class="stat"><span class="stat-num">∞</span><span class="stat-label">Career Possibilities</span></div>
+      </div>
+    </div>
+    <div class="hero-image">
+      <div class="hero-card card-float"><div class="card-icon">🧠</div><div class="card-text">Daily Mood Tracking</div><div class="card-sub">Track your emotional progress weekly</div></div>
+      <div class="hero-card card-float-2"><div class="card-icon">💪</div><div class="card-text">Physical Therapy</div><div class="card-sub">Exercise plans by real therapists</div></div>
+      <div class="hero-card card-float-3"><div class="card-icon">🚀</div><div class="card-text">Career Mentor Matched!</div><div class="card-sub">Former athlete — 3 sessions booked</div></div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ ABOUT ═══════════════ -->
+  <section class="about" id="about">
+    <div class="container">
+      <div class="section-label">Who We Are</div>
+      <h2 class="section-title">Built for the moment <br/><em>no one prepares you for</em></h2>
+      <p class="section-desc">When an injury ends your athletic career, the world doesn't stop — but yours feels like it does. Beyond The Game was created because that moment deserves more than generic advice. You deserve a platform that understands what it means to lose sport, identity, community, and income all at once — and knows how to help you rebuild all of it.</p>
+      <div class="pillars">
+        <div class="pillar" data-animate><div class="pillar-icon">🧠</div><h3>Mental Support</h3><p>Evidence-based emotional tools, peer communities, therapist access, and daily mood tracking — all designed around athletic psychology.</p></div>
+        <div class="pillar pillar-center" data-animate><div class="pillar-icon">💪</div><h3>Physical Support</h3><p>Connect with licensed physiotherapists, follow injury-specific exercise programs, and get personalized nutrition plans for recovery.</p></div>
+        <div class="pillar" data-animate><div class="pillar-icon">🚀</div><h3>Career Opportunities</h3><p>Discover new pathways, match with career mentors, and turn your athletic skills into a powerful professional identity.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ MENTAL SUPPORT ═══════════════ -->
+  <section class="mental" id="mental">
+    <div class="container">
+      <div class="section-label">Pillar One</div>
+      <h2 class="section-title">Mental <span class="highlight">Support</span></h2>
+      <p class="section-desc">Your mind needs recovery just as much as your body. Our tools are built on real therapeutic frameworks designed for athletes navigating identity loss, grief, and transition.</p>
+
+      <!-- ── 1A: MOTIVATIONAL STORIES ── -->
+      <div class="data-section">
+        <h3 class="data-section-title">🎙️ Motivational Stories from Recovered Athletes</h3>
+        <p class="data-section-sub">Real athletes. Real injuries. Real comebacks. Click any story to read in full.</p>
+
+        <!-- GEMINI SEARCH -->
+        <div class="gsb-wrapper">
+          <div class="gsb-inner">
+            <span class="gsb-icon">🔍</span>
+            <input type="text" id="storiesSearchInput" class="gsb-input"
+              placeholder="e.g. footballer who recovered from ACL and became a coach..."
+              onkeydown="if(event.key==='Enter') geminiSearch('stories')"/>
+            <button class="gsb-btn" onclick="geminiSearch('stories')">
+              <span id="storiesBtnTxt">Search</span>
+            </button>
+          </div>
+          <div class="gsb-hints">
+            <span>Try:</span>
+            <button class="hint-chip" onclick="quickSearch('stories','Swimmer who overcame shoulder injury')">Swimmer + shoulder</button>
+            <button class="hint-chip" onclick="quickSearch('stories','Athlete who turned injury into business')">Injury to business</button>
+            <button class="hint-chip" onclick="quickSearch('stories','Young athlete who lost scholarship but rebuilt career')">Lost scholarship</button>
+          </div>
+        </div>
+        <div id="storiesGeminiResult" class="gsb-result" style="display:none;">
+          <div class="gsb-result-header">
+            <span class="gemini-badge">✨ Powered by Google Gemini</span>
+            <button class="gemini-clear-btn" onclick="clearGemini('stories')">✕ Clear</button>
+          </div>
+          <div id="storiesGeminiContent" class="gemini-content"></div>
+        </div>
+        <div id="storiesLoading" class="gsb-loading" style="display:none;"><div class="loading-spinner"></div><span>Gemini is searching for inspiring stories...</span></div>
+        <div id="storiesError" class="gsb-error" style="display:none;"></div>
+        <div id="storiesGrid" class="stories-grid"></div>
+      </div>
+
+      <!-- ── 1B: JOURNAL PROMPTS ── -->
+      <div class="data-section">
+        <h3 class="data-section-title">📓 Self-Worth Journaling Prompts</h3>
+        <p class="data-section-sub">Evidence-based daily writing prompts to rebuild identity and self-esteem.</p>
+
+        <!-- GEMINI SEARCH -->
+        <div class="gsb-wrapper">
+          <div class="gsb-inner">
+            <span class="gsb-icon">🔍</span>
+            <input type="text" id="journalSearchInput" class="gsb-input"
+              placeholder="e.g. journal prompts for grief and identity loss after career ending injury..."
+              onkeydown="if(event.key==='Enter') geminiSearch('journal')"/>
+            <button class="gsb-btn" onclick="geminiSearch('journal')">
+              <span id="journalBtnTxt">Search</span>
+            </button>
+          </div>
+          <div class="gsb-hints">
+            <span>Try:</span>
+            <button class="hint-chip" onclick="quickSearch('journal','Self-worth journaling after losing athletic identity')">Identity loss</button>
+            <button class="hint-chip" onclick="quickSearch('journal','Gratitude journal prompts for injured athletes')">Gratitude practice</button>
+            <button class="hint-chip" onclick="quickSearch('journal','Future self journaling for career transition')">Future self</button>
+          </div>
+        </div>
+        <div id="journalGeminiResult" class="gsb-result" style="display:none;">
+          <div class="gsb-result-header">
+            <span class="gemini-badge">✨ Powered by Google Gemini</span>
+            <button class="gemini-clear-btn" onclick="clearGemini('journal')">✕ Clear</button>
+          </div>
+          <div id="journalGeminiContent" class="gemini-content"></div>
+        </div>
+        <div id="journalLoading" class="gsb-loading" style="display:none;"><div class="loading-spinner"></div><span>Gemini is creating your journal prompts...</span></div>
+        <div id="journalError" class="gsb-error" style="display:none;"></div>
+        <div id="journalGrid" class="journal-grid"></div>
+      </div>
+
+      <!-- ── 1C: DAILY TASKS ── -->
+      <div class="data-section">
+        <h3 class="data-section-title">✅ Today's Meaningful Tasks</h3>
+        <p class="data-section-sub">Small, purposeful daily actions to rebuild routine, connection, and purpose.</p>
+
+        <!-- GEMINI SEARCH -->
+        <div class="gsb-wrapper">
+          <div class="gsb-inner">
+            <span class="gsb-icon">🔍</span>
+            <input type="text" id="tasksSearchInput" class="gsb-input"
+              placeholder="e.g. daily tasks for an athlete feeling isolated and depressed after injury..."
+              onkeydown="if(event.key==='Enter') geminiSearch('tasks')"/>
+            <button class="gsb-btn" onclick="geminiSearch('tasks')">
+              <span id="tasksBtnTxt">Search</span>
+            </button>
+          </div>
+          <div class="gsb-hints">
+            <span>Try:</span>
+            <button class="hint-chip" onclick="quickSearch('tasks','Tasks for rebuilding routine after career-ending injury')">Rebuilding routine</button>
+            <button class="hint-chip" onclick="quickSearch('tasks','Social connection tasks for isolated injured athlete')">Social connection</button>
+            <button class="hint-chip" onclick="quickSearch('tasks','Mindfulness tasks for athlete anxiety and depression')">Anxiety & mindfulness</button>
+          </div>
+        </div>
+        <div id="tasksGeminiResult" class="gsb-result" style="display:none;">
+          <div class="gsb-result-header">
+            <span class="gemini-badge">✨ Powered by Google Gemini</span>
+            <button class="gemini-clear-btn" onclick="clearGemini('tasks')">✕ Clear</button>
+          </div>
+          <div id="tasksGeminiContent" class="gemini-content"></div>
+        </div>
+        <div id="tasksLoading" class="gsb-loading" style="display:none;"><div class="loading-spinner"></div><span>Gemini is generating personalised daily tasks...</span></div>
+        <div id="tasksError" class="gsb-error" style="display:none;"></div>
+        <div id="tasksGrid" class="tasks-grid"></div>
+      </div>
+
+      <!-- ── MOOD TRACKER (no search needed) ── -->
+      <div class="data-section">
+        <div class="tracker-box" data-animate>
+          <div class="tracker-left">
+            <div class="section-label" style="color:#a78bfa">Daily Check-In</div>
+            <h3>How are you feeling today?</h3>
+            <p>Take 60 seconds to log your mood.</p>
+            <div class="mood-emojis">
+              <button class="mood-btn" onclick="selectMood(this, 1)">😢</button>
+              <button class="mood-btn" onclick="selectMood(this, 2)">😟</button>
+              <button class="mood-btn" onclick="selectMood(this, 3)">😐</button>
+              <button class="mood-btn" onclick="selectMood(this, 4)">🙂</button>
+              <button class="mood-btn" onclick="selectMood(this, 5)">😊</button>
+            </div>
+            <div class="mood-label" id="moodLabel">Select how you feel</div>
+            <button class="btn btn-primary" id="logMoodBtn" onclick="logMood()" style="margin-top:1rem;display:none;">Log Today's Mood</button>
+            <div class="mood-logged" id="moodLogged" style="display:none;">✅ Mood logged! You're making progress.</div>
+            <div id="moodTipBox" style="display:none;" class="mood-tip-box"></div>
+          </div>
+          <div class="tracker-right">
+            <div class="weekly-chart">
+              <div class="chart-title">Your Week at a Glance</div>
+              <div class="chart-bars">
+                <div class="chart-col"><div class="chart-bar" style="height:55%;background:#f59e0b"></div><span>M</span></div>
+                <div class="chart-col"><div class="chart-bar" style="height:40%;background:#ef4444"></div><span>T</span></div>
+                <div class="chart-col"><div class="chart-bar" style="height:65%;background:#f59e0b"></div><span>W</span></div>
+                <div class="chart-col"><div class="chart-bar" style="height:75%;background:#22c55e"></div><span>T</span></div>
+                <div class="chart-col"><div class="chart-bar" style="height:80%;background:#22c55e"></div><span>F</span></div>
+                <div class="chart-col"><div class="chart-bar" style="height:88%;background:#3b82f6"></div><span>S</span></div>
+                <div class="chart-col chart-col-today"><div class="chart-bar today-bar" style="height:20%"></div><span>S</span></div>
+              </div>
+              <div class="chart-trend">📈 Trending upward this week</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ PHYSICAL SUPPORT ═══════════════ -->
+  <section class="physical" id="physical">
+    <div class="container">
+      <div class="section-label">Pillar Two</div>
+      <h2 class="section-title">Physical <span class="highlight">Support</span></h2>
+      <p class="section-desc">Structured, professionally guided physical care that adapts dynamically to your current condition — not where you were, but where you are right now.</p>
+
+      <!-- ── 2A: THERAPISTS ── -->
+      <div class="data-section">
+        <h3 class="data-section-title" style="color:#fff">🏥 Meet Our Physical Therapists</h3>
+        <p class="data-section-sub" style="color:rgba(255,255,255,0.6)">Licensed physiotherapists from around the world — available for virtual consultations.</p>
+
+        <!-- GEMINI SEARCH -->
+        <div class="gsb-wrapper gsb-dark">
+          <div class="gsb-inner">
+            <span class="gsb-icon">🔍</span>
+            <input type="text" id="therapistSearchInput" class="gsb-input"
+              placeholder="e.g. physiotherapist specialising in ACL recovery for footballers..."
+              onkeydown="if(event.key==='Enter') geminiSearch('therapist')"/>
+            <button class="gsb-btn" onclick="geminiSearch('therapist')">
+              <span id="therapistBtnTxt">Search</span>
+            </button>
+          </div>
+          <div class="gsb-hints">
+            <span>Try:</span>
+            <button class="hint-chip" onclick="quickSearch('therapist','Physiotherapist for shoulder rotator cuff recovery')">Shoulder specialist</button>
+            <button class="hint-chip" onclick="quickSearch('therapist','Sports physio for chronic pain management')">Chronic pain</button>
+            <button class="hint-chip" onclick="quickSearch('therapist','Aquatic physiotherapy for spinal injury athlete')">Aquatic therapy</button>
+          </div>
+        </div>
+        <div id="therapistGeminiResult" class="gsb-result gsb-result-dark" style="display:none;">
+          <div class="gsb-result-header">
+            <span class="gemini-badge">✨ Powered by Google Gemini</span>
+            <button class="gemini-clear-btn" onclick="clearGemini('therapist')">✕ Clear</button>
+          </div>
+          <div id="therapistGeminiContent" class="gemini-content gemini-content-dark"></div>
+        </div>
+        <div id="therapistLoading" class="gsb-loading gsb-loading-dark" style="display:none;"><div class="loading-spinner"></div><span>Gemini is finding the right therapist guidance...</span></div>
+        <div id="therapistError" class="gsb-error" style="display:none;"></div>
+        <div id="therapistsGrid" class="therapists-grid"></div>
+      </div>
+
+      <!-- ── 2B: EXERCISE PROGRAMS ── -->
+      <div class="data-section">
+        <h3 class="data-section-title" style="color:#fff">🏋️ Injury-Specific Exercise Programs</h3>
+        <p class="data-section-sub" style="color:rgba(255,255,255,0.6)">Click any program to expand full exercise details. Or search for a custom program below.</p>
+
+        <!-- GEMINI SEARCH -->
+        <div class="gsb-wrapper gsb-dark">
+          <div class="gsb-inner">
+            <span class="gsb-icon">🔍</span>
+            <input type="text" id="exerciseSearchInput" class="gsb-input"
+              placeholder="e.g. week 4 ACL recovery exercises for a 28-year-old runner..."
+              onkeydown="if(event.key==='Enter') geminiSearch('exercise')"/>
+            <button class="gsb-btn" onclick="geminiSearch('exercise')">
+              <span id="exerciseBtnTxt">Search</span>
+            </button>
+          </div>
+          <div class="gsb-hints">
+            <span>Try:</span>
+            <button class="hint-chip" onclick="quickSearch('exercise','Phase 2 ACL recovery strengthening exercises')">ACL Phase 2</button>
+            <button class="hint-chip" onclick="quickSearch('exercise','Rotator cuff strengthening exercises for swimmer')">Rotator cuff</button>
+            <button class="hint-chip" onclick="quickSearch('exercise','Gentle core exercises for lower back stress fracture')">Lower back</button>
+          </div>
+        </div>
+        <div id="exerciseGeminiResult" class="gsb-result gsb-result-dark" style="display:none;">
+          <div class="gsb-result-header">
+            <span class="gemini-badge">✨ Powered by Google Gemini</span>
+            <button class="gemini-clear-btn" onclick="clearGemini('exercise')">✕ Clear</button>
+          </div>
+          <div id="exerciseGeminiContent" class="gemini-content gemini-content-dark"></div>
+        </div>
+        <div id="exerciseLoading" class="gsb-loading gsb-loading-dark" style="display:none;"><div class="loading-spinner"></div><span>Gemini is building your custom exercise program...</span></div>
+        <div id="exerciseError" class="gsb-error" style="display:none;"></div>
+        <div id="exerciseAccordion" class="exercise-accordion"></div>
+      </div>
+
+      <!-- ── 2C: NUTRITION ── -->
+      <div class="data-section">
+        <h3 class="data-section-title" style="color:#fff">🥗 Recovery Nutrition Plan</h3>
+        <p class="data-section-sub" style="color:rgba(255,255,255,0.6)">Search for a personalised meal plan based on your injury, sport, or dietary needs — powered by Google Gemini AI.</p>
+
+        <!-- GEMINI SEARCH -->
+        <div class="gsb-wrapper gsb-dark">
+          <div class="gsb-inner">
+            <span class="gsb-icon">🔍</span>
+            <input type="text" id="nutritionSearchInput" class="gsb-input"
+              placeholder="e.g. ACL recovery meal plan for a footballer with high protein needs..."
+              onkeydown="if(event.key==='Enter') geminiSearch('nutrition')"/>
+            <button class="gsb-btn" onclick="geminiSearch('nutrition')">
+              <span id="nutritionBtnTxt">Search</span>
+            </button>
+          </div>
+          <div class="gsb-hints">
+            <span>Try:</span>
+            <button class="hint-chip" onclick="quickSearch('nutrition','Post ACL surgery anti-inflammatory meal plan')">Post ACL surgery</button>
+            <button class="hint-chip" onclick="quickSearch('nutrition','High protein meal plan for shoulder injury recovery')">Shoulder recovery</button>
+            <button class="hint-chip" onclick="quickSearch('nutrition','Vegetarian athlete recovery diet plan')">Vegetarian athlete</button>
+            <button class="hint-chip" onclick="quickSearch('nutrition','Spinal injury recovery nutrition for a sprinter')">Spinal injury</button>
+          </div>
+        </div>
+        <div id="nutritionGeminiResult" class="gsb-result gsb-result-dark" style="display:none;">
+          <div class="gsb-result-header">
+            <span class="gemini-badge">✨ Powered by Google Gemini</span>
+            <button class="gemini-clear-btn" onclick="clearGemini('nutrition')">✕ Clear</button>
+          </div>
+          <div id="nutritionGeminiContent" class="gemini-content gemini-content-dark"></div>
+        </div>
+        <div id="nutritionLoading" class="gsb-loading gsb-loading-dark" style="display:none;"><div class="loading-spinner"></div><span>Gemini is generating your personalised nutrition plan...</span></div>
+        <div id="nutritionError" class="gsb-error" style="display:none;"></div>
+        <div id="nutritionPlan" class="nutrition-container"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ CAREER OPPORTUNITIES ═══════════════ -->
+  <section class="career" id="career">
+    <div class="container">
+      <div class="section-label">Pillar Three</div>
+      <h2 class="section-title">Career <span class="highlight">Opportunities</span></h2>
+      <p class="section-desc">The end of your athletic career is not the end of your story. Your discipline, leadership, resilience, and strategic thinking are extraordinary professional assets.</p>
+
+      <!-- ── 3A: SKILLS MAP ── -->
+      <div class="data-section">
+        <h3 class="data-section-title">💼 Your Athletic Skills = Professional Power</h3>
+        <p class="data-section-sub">Every skill you built as an athlete translates directly into professional value.</p>
+
+        <!-- GEMINI SEARCH -->
+        <div class="gsb-wrapper">
+          <div class="gsb-inner">
+            <span class="gsb-icon">🔍</span>
+            <input type="text" id="skillsSearchInput" class="gsb-input"
+              placeholder="e.g. how do my leadership skills as a team captain translate to business..."
+              onkeydown="if(event.key==='Enter') geminiSearch('skills')"/>
+            <button class="gsb-btn" onclick="geminiSearch('skills')">
+              <span id="skillsBtnTxt">Search</span>
+            </button>
+          </div>
+          <div class="gsb-hints">
+            <span>Try:</span>
+            <button class="hint-chip" onclick="quickSearch('skills','Skills a professional footballer has that translate to business')">Football to business</button>
+            <button class="hint-chip" onclick="quickSearch('skills','What corporate skills does a marathon runner have')">Endurance to corporate</button>
+            <button class="hint-chip" onclick="quickSearch('skills','Leadership skills of a team sport athlete in the workplace')">Team leadership</button>
+          </div>
+        </div>
+        <div id="skillsGeminiResult" class="gsb-result" style="display:none;">
+          <div class="gsb-result-header">
+            <span class="gemini-badge">✨ Powered by Google Gemini</span>
+            <button class="gemini-clear-btn" onclick="clearGemini('skills')">✕ Clear</button>
+          </div>
+          <div id="skillsGeminiContent" class="gemini-content"></div>
+        </div>
+        <div id="skillsLoading" class="gsb-loading" style="display:none;"><div class="loading-spinner"></div><span>Gemini is mapping your athletic skills to professional roles...</span></div>
+        <div id="skillsError" class="gsb-error" style="display:none;"></div>
+        <div id="skillsMapGrid" class="skills-map-grid"></div>
+      </div>
+
+      <!-- ── 3B: CAREER PATHS ── -->
+      <div class="data-section">
+        <h3 class="data-section-title">🚀 Where Could Your Career Go?</h3>
+        <p class="data-section-sub">Click any career path to see a full step-by-step roadmap built for former athletes.</p>
+
+        <!-- GEMINI SEARCH -->
+        <div class="gsb-wrapper">
+          <div class="gsb-inner">
+            <span class="gsb-icon">🔍</span>
+            <input type="text" id="careerSearchInput" class="gsb-input"
+              placeholder="e.g. best career paths for a retired professional swimmer aged 28..."
+              onkeydown="if(event.key==='Enter') geminiSearch('career')"/>
+            <button class="gsb-btn" onclick="geminiSearch('career')">
+              <span id="careerBtnTxt">Search</span>
+            </button>
+          </div>
+          <div class="gsb-hints">
+            <span>Try:</span>
+            <button class="hint-chip" onclick="quickSearch('career','Career paths for a retired professional footballer')">Retired footballer</button>
+            <button class="hint-chip" onclick="quickSearch('career','Business ideas for former Olympic athlete')">Olympic athlete</button>
+            <button class="hint-chip" onclick="quickSearch('career','How to become a sports coach after career-ending injury')">Become a coach</button>
+          </div>
+        </div>
+        <div id="careerGeminiResult" class="gsb-result" style="display:none;">
+          <div class="gsb-result-header">
+            <span class="gemini-badge">✨ Powered by Google Gemini</span>
+            <button class="gemini-clear-btn" onclick="clearGemini('career')">✕ Clear</button>
+          </div>
+          <div id="careerGeminiContent" class="gemini-content"></div>
+        </div>
+        <div id="careerLoading" class="gsb-loading" style="display:none;"><div class="loading-spinner"></div><span>Gemini is exploring career paths for you...</span></div>
+        <div id="careerError" class="gsb-error" style="display:none;"></div>
+        <div id="careerPathsGrid" class="career-paths"></div>
+      </div>
+
+      <!-- ── 3C: MENTORS ── -->
+      <div class="data-section">
+        <h3 class="data-section-title">🌟 Career Mentors — Former Athletes Who Made It</h3>
+        <p class="data-section-sub">Get matched with mentors who have lived your exact situation.</p>
+
+        <!-- GEMINI SEARCH -->
+        <div class="gsb-wrapper">
+          <div class="gsb-inner">
+            <span class="gsb-icon">🔍</span>
+            <input type="text" id="mentorSearchInput" class="gsb-input"
+              placeholder="e.g. mentor who transitioned from basketball to entrepreneurship..."
+              onkeydown="if(event.key==='Enter') geminiSearch('mentor')"/>
+            <button class="gsb-btn" onclick="geminiSearch('mentor')">
+              <span id="mentorBtnTxt">Search</span>
+            </button>
+          </div>
+          <div class="gsb-hints">
+            <span>Try:</span>
+            <button class="hint-chip" onclick="quickSearch('mentor','Former athlete mentor for media and journalism career')">Media career</button>
+            <button class="hint-chip" onclick="quickSearch('mentor','Mentor who went from sport to corporate speaking')">Corporate speaking</button>
+            <button class="hint-chip" onclick="quickSearch('mentor','Athlete entrepreneur mentor for sportswear brand')">Sportswear brand</button>
+          </div>
+        </div>
+        <div id="mentorGeminiResult" class="gsb-result" style="display:none;">
+          <div class="gsb-result-header">
+            <span class="gemini-badge">✨ Powered by Google Gemini</span>
+            <button class="gemini-clear-btn" onclick="clearGemini('mentor')">✕ Clear</button>
+          </div>
+          <div id="mentorGeminiContent" class="gemini-content"></div>
+        </div>
+        <div id="mentorLoading" class="gsb-loading" style="display:none;"><div class="loading-spinner"></div><span>Gemini is finding the right mentor match for you...</span></div>
+        <div id="mentorError" class="gsb-error" style="display:none;"></div>
+        <div id="mentorsGrid" class="mentors-grid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ COMMUNITY ═══════════════ -->
+  <section class="community" id="community">
+    <div class="container">
+      <div class="section-label">You Are Not Alone</div>
+      <h2 class="section-title">The <span class="highlight">Community</span></h2>
+      <p class="section-desc">Thousands of athletes are walking the same path. Beyond The Game connects you with all of them.</p>
+      <div class="testimonials"></div>
+      <h3 class="data-section-title" style="text-align:center;margin:3rem 0 1rem">⚽ Join Your Sports Circle</h3>
+      <p class="data-section-sub" style="text-align:center;margin-bottom:2rem">Click any circle to see community details, weekly events, and recent posts.</p>
+      <div class="community-circles"></div>
+      <div class="data-section">
+        <h3 class="data-section-title">💬 Latest from the Community</h3>
+        <p class="data-section-sub">Real conversations from athletes who understand.</p>
+        <div id="forumPosts" class="forum-grid"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ CONTACT ═══════════════ -->
+  <section class="contact" id="contact">
+    <div class="container">
+      <div class="section-label">Take The First Step</div>
+      <h2 class="section-title">Get <span class="highlight">Support</span> Today</h2>
+      <p class="section-desc">Fill in your details and tell us what kind of support you need. Our team will reach out within 24 hours.</p>
+      <div class="contact-wrap">
+        <form class="contact-form" id="contactForm" onsubmit="submitForm(event)">
+          <div class="form-row">
+            <div class="form-group"><label>Your Name</label><input type="text" placeholder="e.g. James Miller" required /></div>
+            <div class="form-group"><label>Email Address</label><input type="email" placeholder="your@email.com" required /></div>
+          </div>
+          <div class="form-row">
+            <div class="form-group"><label>Your Sport</label><input type="text" placeholder="e.g. Football, Swimming, Athletics" /></div>
+            <div class="form-group"><label>Type of Injury</label><input type="text" placeholder="e.g. ACL tear, Spinal, Shoulder" /></div>
+          </div>
+          <div class="form-group">
+            <label>What Support Do You Need?</label>
+            <div class="checkbox-group">
+              <label class="checkbox-label"><input type="checkbox" /> 🧠 Mental Support</label>
+              <label class="checkbox-label"><input type="checkbox" /> 💪 Physical Recovery</label>
+              <label class="checkbox-label"><input type="checkbox" /> 🚀 Career Guidance</label>
+              <label class="checkbox-label"><input type="checkbox" /> 👥 Community Access</label>
+            </div>
+          </div>
+          <div class="form-group"><label>Tell Us Your Story (Optional)</label><textarea rows="4" placeholder="Share what you're going through — we're listening..."></textarea></div>
+          <button type="submit" class="btn btn-primary btn-full">Send My Request →</button>
+        </form>
+        <div class="form-success" id="formSuccess" style="display:none;">
+          <div class="success-icon">🎯</div>
+          <h3>We've got your message.</h3>
+          <p>Thank you for reaching out. Our support team will contact you within 24 hours. You've already taken the hardest step.</p>
+        </div>
+        <div class="contact-info">
+          <h4>Other Ways to Reach Us</h4>
+          <div class="info-item">📧 support@beyondthegame.com</div>
+          <div class="info-item">💬 Anonymous Chat — available 24/7</div>
+          <div class="info-item">🌍 Available worldwide — fully online</div>
+          <div class="info-item">⚡ Response within 24 hours guaranteed</div>
+          <div class="crisis-box"><strong>In Crisis Right Now?</strong><p>If you're struggling urgently, please reach out to a mental health crisis line in your country. You matter — and help is available right now.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══════════════ FOOTER ═══════════════ -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="nav-logo">Beyond <span>The Game</span></div>
+          <p>A holistic support platform for injured athletes — mental, physical, and professional recovery under one roof.</p>
+        </div>
+        <div class="footer-links">
+          <div class="footer-col"><h5>Support</h5><a href="#mental">Mental Wellness</a><a href="#physical">Physical Recovery</a><a href="#career">Career Transition</a><a href="#community">Community</a></div>
+          <div class="footer-col"><h5>Platform</h5><a href="#contact">Get Started</a><a href="#contact">Find a Therapist</a><a href="#contact">Book a Mentor</a><a href="#mental">Daily Check-In</a></div>
+          <div class="footer-col"><h5>About</h5><a href="#about">Our Mission</a><a href="#about">Why We Exist</a><a href="#contact">Contact Us</a></div>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <div>© 2025 Beyond The Game. All rights reserved.</div>
+        <div>Built with care for athletes who deserve more.</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="data.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
