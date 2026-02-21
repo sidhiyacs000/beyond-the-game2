@@ -564,7 +564,7 @@ const GROQ_MODEL = 'llama-3.3-70b-versatile';
 const GROQ_API_KEY = (
   window.GROQ_API_KEY ||
   localStorage.getItem('GROQ_API_KEY') ||
-  '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'
+  ''
 ).trim();
 
 const GEMINI_SECTION_CONFIG = {
