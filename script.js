@@ -555,94 +555,95 @@ window.addEventListener('load', () => {
 });
 
 // ============================================================
-// GEMINI NUTRITION SEARCH
+// AI SEARCH (Groq direct from browser)
 // ============================================================
 
-const GEMINI_API_KEY = 'YOUR_GEMINI_API_KEY_HERE'; // 🔑 Replace with your actual Gemini API key
-const GEMINI_API_URL = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${GEMINI_API_KEY}`;
+const GROQ_API_URL = 'https://api.groq.com/openai/v1/chat/completions';
+const GROQ_MODEL = 'llama-3.3-70b-versatile';
+// Set your key here OR define `window.GROQ_API_KEY` OR set localStorage.GROQ_API_KEY.
+const GROQ_API_KEY = (
+  window.GROQ_API_KEY ||
+  localStorage.getItem('GROQ_API_KEY') ||
+  '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'
+).trim();
 
-function fillAndSearch(query) {
-  document.getElementById('nutritionSearchInput').value = query;
-  searchNutritionPlan();
+const GEMINI_SECTION_CONFIG = {
+  stories: {
+    title: 'Motivational Stories',
+    defaultContainerId: 'storiesGrid',
+    promptFocus: 'realistic examples of athlete recovery and reinvention stories'
+  },
+  journal: {
+    title: 'Journal Prompts',
+    defaultContainerId: 'journalGrid',
+    promptFocus: 'structured, therapeutic journaling prompts for injured athletes'
+  },
+  tasks: {
+    title: 'Daily Tasks',
+    defaultContainerId: 'tasksGrid',
+    promptFocus: 'small, practical daily tasks that improve emotional recovery and momentum'
+  },
+  therapist: {
+    title: 'Therapist Guidance',
+    defaultContainerId: 'therapistsGrid',
+    promptFocus: 'how to choose suitable physiotherapy support and what to ask in sessions'
+  },
+  exercise: {
+    title: 'Exercise Plan',
+    defaultContainerId: 'exerciseAccordion',
+    promptFocus: 'safe, progressive recovery exercise suggestions with clear cautions'
+  },
+  nutrition: {
+    title: 'Nutrition Plan',
+    defaultContainerId: 'nutritionPlan',
+    promptFocus: 'evidence-based recovery nutrition guidance and meal structure'
+  },
+  skills: {
+    title: 'Skill Translation',
+    defaultContainerId: 'skillsMapGrid',
+    promptFocus: 'how athletic strengths map to workplace and business capabilities'
+  },
+  career: {
+    title: 'Career Paths',
+    defaultContainerId: 'careerPathsGrid',
+    promptFocus: 'practical transition options from sport into sustainable career paths'
+  },
+  mentor: {
+    title: 'Mentor Match',
+    defaultContainerId: 'mentorsGrid',
+    promptFocus: 'what type of mentor profile best fits the athlete query and why'
+  }
+};
+
+function getSearchElements(section) {
+  const config = GEMINI_SECTION_CONFIG[section];
+  if (!config) return null;
+
+  const input = document.getElementById(`${section}SearchInput`);
+  const btnText = document.getElementById(`${section}BtnTxt`);
+  const loading = document.getElementById(`${section}Loading`);
+  const result = document.getElementById(`${section}GeminiResult`);
+  const content = document.getElementById(`${section}GeminiContent`);
+  const error = document.getElementById(`${section}Error`);
+  const defaultContainer = document.getElementById(config.defaultContainerId);
+
+  if (!input || !btnText || !loading || !result || !content || !error) return null;
+
+  return { input, btnText, loading, result, content, error, defaultContainer, config };
 }
 
-async function searchNutritionPlan() {
-  const input = document.getElementById('nutritionSearchInput');
-  const query = input.value.trim();
-
-  if (!query) {
-    input.focus();
-    input.style.borderColor = '#ef4444';
-    setTimeout(() => input.style.borderColor = '', 2000);
-    return;
-  }
-
-  // Show loading, hide others
-  document.getElementById('nutritionLoading').style.display     = 'flex';
-  document.getElementById('nutritionGeminiResult').style.display = 'none';
-  document.getElementById('nutritionError').style.display       = 'none';
-  document.getElementById('nutritionPlan').style.display        = 'none';
-  document.getElementById('nutritionSearchBtnText').textContent = 'Searching...';
-
-  const prompt = `You are a professional sports nutritionist specialising in athlete injury recovery.
-
-An injured athlete has asked: "${query}"
-
-Please provide a detailed, structured recovery meal plan and nutrition advice. Format your response with clear sections using these exact headings:
-
-## Overview
-Brief summary of the nutrition approach for this specific query.
-
-## Daily Caloric & Macro Targets
-Protein, carbohydrates, fats, and total calorie guidance.
-
-## Key Nutrients to Prioritise
-List the most important nutrients with their purpose and best food sources.
-
-## Sample Day Meal Plan
-Breakfast, Mid-Morning Snack, Lunch, Afternoon Snack, and Dinner with specific food examples and approximate protein per meal.
-
-## Foods to Avoid
-List foods that may slow recovery and explain why.
-
-## Supplement Recommendations
-Any supplements that may support this specific recovery.
-
-## Hydration Guidance
-Daily water intake and any electrolyte advice.
-
-Keep advice practical, specific to the query, evidence-based, and empathetic to an athlete's situation. Use bullet points within sections for readability.`;
-
-  try {
-    const response = await fetch(GEMINI_API_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        contents: [{ parts: [{ text: prompt }] }],
-        generationConfig: { temperature: 0.7, maxOutputTokens: 2048 }
-      })
-    });
-
-    if (!response.ok) {
-      const err = await response.json();
-      throw new Error(err?.error?.message || `API error ${response.status}`);
-    }
-
-    const data = await response.json();
-    const rawText = data?.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (!rawText) throw new Error('No response received from Gemini.');
-    displayGeminiResult(rawText, query);
-
-  } catch (error) {
-    showNutritionError(error.message);
-  } finally {
-    document.getElementById('nutritionSearchBtnText').textContent = 'Search';
-    document.getElementById('nutritionLoading').style.display = 'none';
-  }
+function escapeHtml(text) {
+  return String(text)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
 }
 
-function displayGeminiResult(rawText, query) {
-  let html = rawText
+function formatGeminiMarkdown(rawText) {
+  let html = escapeHtml(rawText)
+    .replace(/^### (.+)$/gm, '<h5 class="gemini-section-title">$1</h5>')
     .replace(/^## (.+)$/gm, '<h4 class="gemini-section-title">$1</h4>')
     .replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>')
     .replace(/\*(.+?)\*/g, '<em>$1</em>')
@@ -650,33 +651,152 @@ function displayGeminiResult(rawText, query) {
     .replace(/(<li>.*<\/li>\n?)+/g, match => `<ul>${match}</ul>`)
     .replace(/\n\n/g, '</p><p class="gemini-para">')
     .replace(/\n/g, '<br/>');
-  html = `<p class="gemini-para">${html}</p>`;
 
-  document.getElementById('nutritionGeminiContent').innerHTML = `
-    <div class="gemini-query-tag">Results for: <em>"${query}"</em></div>
-    <div class="gemini-body">${html}</div>
-    <div class="gemini-disclaimer">⚠️ This is AI-generated nutritional guidance. Please consult a registered dietitian or sports nutritionist before making significant dietary changes, especially post-surgery.</div>
-  `;
-  document.getElementById('nutritionGeminiResult').style.display = 'block';
-  document.getElementById('nutritionGeminiResult').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  if (!html.includes('<p class="gemini-para">')) {
+    html = `<p class="gemini-para">${html}</p>`;
+  }
+
+  return html;
 }
 
-function showNutritionError(message) {
-  const box = document.getElementById('nutritionError');
-  box.innerHTML = `
-    <div class="error-icon">⚠️</div>
-    <div class="error-text">
-      <strong>Something went wrong</strong><br/>
-      ${message}<br/><br/>
-      <small>Make sure your Gemini API key is correct in script.js and has access to the Gemini API.</small>
-    </div>
-  `;
-  box.style.display = 'flex';
-  document.getElementById('nutritionPlan').style.display = 'block';
+function buildGeminiPrompt(section, query) {
+  const { title, promptFocus } = GEMINI_SECTION_CONFIG[section];
+  return `You are a practical support assistant for injured athletes.
+
+Search topic: ${title}
+Athlete request: "${query}"
+
+Return a concise, useful response focused on: ${promptFocus}.
+
+Output format:
+## Quick Summary
+## Actionable Guidance
+## Risks or Cautions
+## Next 7-Day Plan
+
+Use clear bullet points where useful. Keep guidance realistic and safety-aware.`;
+}
+
+function setSearchBusyState(els, busy) {
+  els.btnText.textContent = busy ? 'Searching...' : 'Search';
+  els.input.disabled = busy;
+}
+
+async function geminiSearch(section) {
+  const els = getSearchElements(section);
+  if (!els) {
+    console.error(`Search UI not found for section: ${section}`);
+    return;
+  }
+
+  const query = els.input.value.trim();
+  if (!query) {
+    els.input.focus();
+    els.input.style.borderColor = '#ef4444';
+    setTimeout(() => { els.input.style.borderColor = ''; }, 1600);
+    return;
+  }
+
+  els.loading.style.display = 'flex';
+  els.result.style.display = 'none';
+  els.error.style.display = 'none';
+  if (els.defaultContainer) els.defaultContainer.style.display = 'none';
+  setSearchBusyState(els, true);
+
+  try {
+    if (!GROQ_API_KEY || GROQ_API_KEY === 'YOUR_GROQ_API_KEY_HERE') {
+      throw new Error('Groq API key is not configured in script.js.');
+    }
+
+    const response = await fetch(GROQ_API_URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Accept': 'application/json',
+        'Authorization': `Bearer ${GROQ_API_KEY}`
+      },
+      body: JSON.stringify({
+        model: GROQ_MODEL,
+        messages: [
+          { role: 'system', content: 'You help injured athletes with practical, safe guidance.' },
+          { role: 'user', content: buildGeminiPrompt(section, query) }
+        ],
+        temperature: 0.7,
+        max_tokens: 1600
+      })
+    });
+
+    if (!response.ok) {
+      let errPayload = null;
+      try {
+        errPayload = await response.json();
+      } catch (parseError) {
+        errPayload = null;
+      }
+      const apiMessage = errPayload?.error?.message || errPayload?.error || errPayload?.message;
+      throw new Error(apiMessage || `API error ${response.status}`);
+    }
+
+    const data = await response.json();
+    let rawText = data?.choices?.[0]?.message?.content || '';
+    if (Array.isArray(rawText)) {
+      rawText = rawText.map(part => (typeof part === 'string' ? part : (part?.text || ''))).join('\n');
+    }
+    rawText = String(rawText).trim();
+    if (!rawText) throw new Error('No response received from Groq.');
+
+    els.content.innerHTML = `
+      <div class="gemini-query-tag">Results for: <em>"${escapeHtml(query)}"</em></div>
+      <div class="gemini-body">${formatGeminiMarkdown(rawText)}</div>
+      <div class="gemini-disclaimer">AI-generated guidance. Verify important medical, rehab, and career decisions with a qualified professional.</div>
+    `;
+    els.result.style.display = 'block';
+    els.result.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  } catch (error) {
+    els.error.innerHTML = `
+      <div class="error-icon">!</div>
+      <div class="error-text">
+        <strong>Something went wrong</strong><br/>
+        ${escapeHtml(error.message)}<br/><br/>
+        <small>Check GROQ_API_KEY, GROQ_MODEL, and run the page via a local server (not file://).</small>
+      </div>
+    `;
+    els.error.style.display = 'flex';
+    if (els.defaultContainer) els.defaultContainer.style.display = '';
+  } finally {
+    els.loading.style.display = 'none';
+    setSearchBusyState(els, false);
+  }
+}
+
+function quickSearch(section, query) {
+  const els = getSearchElements(section);
+  if (!els) return;
+  els.input.value = query;
+  geminiSearch(section);
+}
+
+function clearGemini(section) {
+  const els = getSearchElements(section);
+  if (!els) return;
+
+  els.input.value = '';
+  els.result.style.display = 'none';
+  els.error.style.display = 'none';
+  els.loading.style.display = 'none';
+  if (els.defaultContainer) els.defaultContainer.style.display = '';
+  setSearchBusyState(els, false);
+}
+
+// Backward-compatible wrappers for older nutrition calls.
+function fillAndSearch(query) {
+  quickSearch('nutrition', query);
+}
+
+async function searchNutritionPlan() {
+  await geminiSearch('nutrition');
 }
 
 function clearNutritionResult() {
-  document.getElementById('nutritionGeminiResult').style.display = 'none';
-  document.getElementById('nutritionPlan').style.display         = 'block';
-  document.getElementById('nutritionSearchInput').value          = '';
+  clearGemini('nutrition');
 }
